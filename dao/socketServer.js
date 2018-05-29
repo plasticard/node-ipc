@@ -165,6 +165,14 @@ function gotData(socket,data,UDPSocket){
         return;
     }
 
+    //if null characters exists, remove all 
+    var data = data.replace(/\0/g, '')
+
+    //if delimiter doesn't exists, add it
+    if (data.slice(-1) != eventParser.delimiter || data.indexOf(eventParser.delimiter) == -1) {
+        data = data + eventParser.delimiter;
+    }
+    
     if(!this.ipcBuffer){
         this.ipcBuffer='';
     }
